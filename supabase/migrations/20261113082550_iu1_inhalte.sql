@@ -6,14 +6,14 @@
 --   - pruefziele, pruefziel_skills, pruefziel_ausschluss (Daten: Migration iu1_pruefziel_msa)
 --   - inhalte_lsa_themen, inhalte_lsa_thema, inhalte_lsa_pruefziel, inhalte_session_reihen, inhalte_session_reihe,
 --     inhalte_themen_ohne_reihe, pruef_ziel_stand
---   - Zwischenspeicher je Skill und Prüfziel (inhalte_skill_cache) wie FR-2: Anweisungs-Trigger markieren ihn als
---     veraltet, inhalte_auffrischen() (Admins) rechnet beim Laden der Seite neu; veraltet → live.
+--   - Zwischenspeicher je Skill und Prüfziel (inhalte_skill_cache) ähnlich FR-2: Anweisungs-Trigger zählen eine Sequenz
+--     hoch (ohne Zeilensperre), inhalte_auffrischen() (Admins) rechnet beim Laden der Seite neu; nicht frisch → live.
 -- Geändert (keine geschützte Funktion; Aufrufer laut pg_proc in der PR):
 --   - lsa_skill_bereit_roh, pruef_ziel_roh: Parameter p_ohne (Aufgaben, die nicht als Beleg zählen und nicht
 --     vorgeschlagen werden). Ohne Parameter gleiche Ausgabe.
 --   - pruef_ziel_liste: Parameter p_pruefziel, p_skill. Ohne sie gleiche Ausgabe.
 --   - lsa_paket_cache_auffrischen, lsa_paket_cache_trigger: DELETE/UPDATE mit WHERE (safeupdate, offen.md O1).
--- Der Themenraum eines Themas wird nicht nachgebaut: Fall A aus lsa_paket_skills_basis (Pakete mit genau diesem Thema).
+-- Themenraum je Thema wie Fall A (raum_a in lsa_paket_skills_roh) über thema_einstieg, skill_kante, lsa_abschluss.
 -- Unverändert: lsa_select_next_core, lsa_freie_aufgabe, lsa_im_pool, pruef_entscheiden, task_status_set,
 -- aufgabe_ziehen, aufgabe_werten, bauform_pruefen, bauform_pruefung_senden, Sammelfreigaben.
 -- Kein begin/commit: mig klammert. Rollback: supabase/rollback/20261113082550_iu1_inhalte.sql
@@ -154,8 +154,8 @@ begin
   perform pg_advisory_xact_lock(hashtext('lsa_paket_cache'));
   -- Stand vor der Rechnung; schreibt währenddessen jemand, ist gen danach größer und der Speicher bleibt veraltet.
   select s.gen into v_gen from public.lsa_paket_cache_stand s;
-  -- IU-1: „where true“, sonst bricht safeupdate (Rolle authenticator) den Aufruf aus der App ab.
-  delete from public.lsa_paket_cache where true;
+  -- IU-1: mit WHERE, sonst bricht safeupdate (Rolle authenticator) den Aufruf aus der App ab.
+  delete from public.lsa_paket_cache where schuljahr is not null;
   insert into public.lsa_paket_cache (schuljahr, schule_id, klasse, paket_nr, thema_keys, quelle, datum, quartal, lage,
                                       hat_einstieg)
   select v_sj, p.schule_id, p.klasse, p.paket_nr, p.thema_keys, p.quelle, p.datum, p.quartal, p.lage,
@@ -196,14 +196,27 @@ create table public.inhalte_skill_cache (
   offene_task_ids uuid[] not null,
   primary key (pruefziel, skill_key)
 );
+-- Stand: gen = Stand der Sequenz inhalte_cache_gen bei der Rechnung. Schreiber zählen die Sequenz hoch (ohne Sperre,
+-- anders als FR-2, weil tasks ständig beschrieben wird). Frisch = gleicher Stand, ohne Fehler, höchstens 15 Minuten alt
+-- (deckt Schreiber ab, die während der Rechnung noch nicht committet waren).
+create sequence public.inhalte_cache_gen;
 create table public.inhalte_cache_stand (
   id           boolean primary key default true check (id),
   berechnet_am timestamptz,
-  veraltet     boolean not null default true,
-  gen          bigint not null default 0,
+  gen          bigint,
   fehler       text
 );
 insert into public.inhalte_cache_stand (id) values (true);
+revoke all on sequence public.inhalte_cache_gen from public, anon, authenticated;
+
+create function public.inhalte_cache_frisch()
+returns boolean
+language sql stable security definer set search_path = public, pg_temp
+as $$
+  select exists (select 1 from public.inhalte_cache_stand s, public.inhalte_cache_gen g
+                  where s.fehler is null and s.gen = g.last_value and g.is_called
+                    and s.berechnet_am > now() - interval '15 minutes')
+$$;
 alter table public.inhalte_skill_cache enable row level security;
 alter table public.inhalte_cache_stand enable row level security;
 create policy inhalte_skill_cache_lesen on public.inhalte_skill_cache for select
@@ -259,7 +272,7 @@ language plpgsql stable security definer set search_path = public, pg_temp
 as $$
 #variable_conflict use_column
 begin
-  if exists (select 1 from public.inhalte_cache_stand s where not s.veraltet and s.fehler is null) then
+  if public.inhalte_cache_frisch() then
     return query select c.skill_key, c.texte, c.erfuellt, c.frei, c.zur_freigabe, c.zu_pruefen, c.fehlen, c.zu_leicht,
                         c.offene_task_ids
                    from public.inhalte_skill_cache c where c.pruefziel = coalesce(p_pruefziel, '');
@@ -274,7 +287,7 @@ returns trigger
 language plpgsql security definer set search_path = public, pg_temp
 as $$
 begin
-  update public.inhalte_cache_stand set veraltet = true, gen = gen + 1 where id;
+  perform nextval('public.inhalte_cache_gen');
   return null;
 end;
 $$;
@@ -288,6 +301,18 @@ create trigger inhalte_cache_task_pruefungen after insert or update or delete or
 create trigger inhalte_cache_session_einstellungen after insert or update or delete or truncate
   on public.session_einstellungen for each statement execute function public.inhalte_cache_trigger();
 create trigger inhalte_cache_skills after insert or update or delete or truncate on public.skills
+  for each statement execute function public.inhalte_cache_trigger();
+create trigger inhalte_cache_task_pruef_ausschluss after insert or update or delete or truncate
+  on public.task_pruef_ausschluss for each statement execute function public.inhalte_cache_trigger();
+create trigger inhalte_cache_task_pruefung_ausgang after insert or update or delete or truncate
+  on public.task_pruefung_ausgang for each statement execute function public.inhalte_cache_trigger();
+create trigger inhalte_cache_task_reviews after insert or update or delete or truncate on public.task_reviews
+  for each statement execute function public.inhalte_cache_trigger();
+create trigger inhalte_cache_task_figures after insert or update or delete or truncate on public.task_figures
+  for each statement execute function public.inhalte_cache_trigger();
+create trigger inhalte_cache_pruef_einstellungen after insert or update or delete or truncate
+  on public.pruef_einstellungen for each statement execute function public.inhalte_cache_trigger();
+create trigger inhalte_cache_skill_thema after insert or update or delete or truncate on public.skill_thema
   for each statement execute function public.inhalte_cache_trigger();
 create trigger inhalte_cache_pruefziele after insert or update or delete or truncate on public.pruefziele
   for each statement execute function public.inhalte_cache_trigger();
@@ -304,15 +329,13 @@ declare
   v_gen bigint;
 begin
   perform pg_advisory_xact_lock(hashtext('inhalte_skill_cache'));
-  select s.gen into v_gen from public.inhalte_cache_stand s;
-  delete from public.inhalte_skill_cache where true;
+  v_gen := nextval('public.inhalte_cache_gen');
+  delete from public.inhalte_skill_cache where pruefziel is not null;
   insert into public.inhalte_skill_cache
   select '', r.* from public.inhalte_skill_stand_roh(null) r;
   insert into public.inhalte_skill_cache
   select z.key, r.* from public.pruefziele z cross join lateral public.inhalte_skill_stand_roh(z.key) r;
-  update public.inhalte_cache_stand
-     set berechnet_am = now(), fehler = null, veraltet = gen is distinct from coalesce(v_gen, 0)
-   where id;
+  update public.inhalte_cache_stand set berechnet_am = now(), fehler = null, gen = v_gen where id;
 end;
 $$;
 
@@ -328,7 +351,7 @@ begin
     raise exception 'inhalte_auffrischen: nur Admins' using errcode = '42501';
   end if;
   perform public.lsa_abdeckung_auffrischen();
-  if exists (select 1 from public.inhalte_cache_stand s where not s.veraltet and s.fehler is null) then
+  if public.inhalte_cache_frisch() then
     return false;
   end if;
   if exists (select 1 from public.inhalte_cache_stand s
@@ -347,16 +370,22 @@ end;
 $$;
 
 -- ── Themen: Raum, Pakete, Zeitfenster ───────────────────────────────────────────────────────────────────────────
--- Fall A je Thema aus den Paketen mit genau diesem einen Thema (in allen Paketen eines Themas gleich, U0 §1).
+-- Fall A je Thema wie raum_a in lsa_paket_skills_roh (Einstieg r 1, direkte Voraussetzung r 2, lsa_abschluss r 3;
+-- Pflicht = r ≤ 2), je Thema statt je Paket, damit auch Themen nur in Arbeiten mit mehreren Themen einen Raum haben.
+-- pgTAP 1a sichert die Gleichheit mit Fall A der Pakete.
 create function public.inhalte_thema_raum(p_schuljahr text)
 returns table(thema_key text, skill_key text, teil text, pflicht boolean)
 language sql stable security definer set search_path = public, pg_temp
 as $$
-  select distinct p.thema_keys[1], s.skill_key, s.teil, s.pflicht
-    from public.lsa_pakete_basis(p_schuljahr) p
-    join public.lsa_paket_skills_basis(p_schuljahr) s
-      on s.schule_id = p.schule_id and s.klasse = p.klasse and s.paket_nr = p.paket_nr
-   where s.fall = 'A' and cardinality(p.thema_keys) = 1
+  select x.thema_key, x.skill_key, (array['einstieg', 'voraussetzung', 'tiefe'])[min(x.r)], min(x.r) <= 2
+    from (select e.thema_key, e.skill_key, 1 r from public.thema_einstieg e
+          union all
+          select e.thema_key, k.voraussetzt_skill_key, 2
+            from public.thema_einstieg e join public.skill_kante k on k.skill_key = e.skill_key
+          union all
+          select e.thema_key, a.skill_key, 3
+            from public.thema_einstieg e cross join lateral public.lsa_abschluss(e.skill_key) a) x
+   group by x.thema_key, x.skill_key
 $$;
 
 -- Themen der Pläne Kl. 8–10 (bzw. p_klasse): Klasse mit den meisten Schulen, Quartal der meisten Pakete mit
@@ -374,9 +403,10 @@ as $$
     select distinct on (pt.thema_key) pt.thema_key, pt.klasse
       from (select thema_key, klasse, count(distinct schule_id) n from pt group by 1, 2) pt
      order by pt.thema_key, pt.n desc, pt.klasse),
-  q as (
+  q as (   -- Zeitfenster aus den Paketen der Klasse des Themas; Schulen über alle Klassen der Auswahl
     select distinct on (x.thema_key) x.thema_key, x.quartal, x.von, x.bis
-      from (select thema_key, quartal, count(*) n, min(datum) von, max(datum) bis from pt group by 1, 2) x
+      from (select pt.thema_key, pt.quartal, count(*) n, min(pt.datum) von, max(pt.datum) bis
+              from pt join kl on kl.thema_key = pt.thema_key and kl.klasse = pt.klasse group by 1, 2) x
      order by x.thema_key, x.n desc, x.quartal),
   sch as (
     select thema_key, count(distinct schule_id)::int schulen,
@@ -446,7 +476,7 @@ $$;
 
 -- Kompetenzen eines Themas: Pflicht (Einstieg, direkte Voraussetzung) vor Tiefe.
 create function public.inhalte_lsa_thema(p_thema_key text)
-returns table(skill_key text, label text, teil text, art text, texte integer, erfuellt boolean, zu_pruefen integer,
+returns table(skill_key text, label text, teil text, rolle text, texte integer, erfuellt boolean, zu_pruefen integer,
               fehlen integer, offene_task_ids uuid[])
 language plpgsql stable security definer set search_path = public, pg_temp
 as $$
@@ -613,7 +643,7 @@ end;
 $$;
 
 -- Sessions einer Reihe (Zuordnung wie die Muster-Ansicht: bauform_pruef_plan). Bauformen ohne Session: nr null.
--- naechster_schritt: lena_prueft | rueckfrage | admin_gibt_frei | video | fertig
+-- naechster_schritt: lena_prueft | rueckfrage | entwurf | admin_gibt_frei | video | fertig
 create function public.inhalte_session_reihe(p_reihe text)
 returns table(nr integer, titel text, bauformen integer, geprueft integer, freigegeben integer, rueckfrage integer,
               zu_pruefen integer, zur_freigabe integer, video_status text, naechster_schritt text)
@@ -636,6 +666,7 @@ begin
            (count(*) filter (where b.status in ('rueckfrage', 'beanstandet')))::int rueck,
            (count(*) filter (where b.status = 'zur_pruefung'))::int zu,
            (count(*) filter (where b.status = 'zur_freigabe'))::int zur,
+           (count(*) filter (where b.status in ('entwurf', 'pausiert')))::int entw,
            (select case when count(*) = 0 then null
                         when bool_and(v.status = 'freigegeben') then 'freigegeben'
                         when bool_or(v.status = 'fehlt') then 'fehlt' else 'in_pruefung' end
@@ -645,6 +676,7 @@ begin
   select je.nr, je.titel, je.n, je.gepr, je.frei, je.rueck, je.zu, je.zur, je.video,
          case when je.zu > 0 then 'lena_prueft'
               when je.rueck > 0 then 'rueckfrage'
+              when je.entw > 0 then 'entwurf'
               when je.zur > 0 then 'admin_gibt_frei'
               when coalesce(je.video, 'freigegeben') <> 'freigegeben' then 'video'
               else 'fertig' end
@@ -775,6 +807,7 @@ revoke all on function public.pruef_ziel_roh(uuid[]) from public, anon, authenti
 revoke all on function public.inhalte_skill_stand_roh(text) from public, anon, authenticated;
 revoke all on function public.inhalte_skill_stand(text) from public, anon, authenticated;
 revoke all on function public.inhalte_cache_trigger() from public, anon, authenticated;
+revoke all on function public.inhalte_cache_frisch() from public, anon, authenticated;
 revoke all on function public.inhalte_cache_neu() from public, anon, authenticated;
 revoke all on function public.inhalte_thema_raum(text) from public, anon, authenticated;
 revoke all on function public.inhalte_themen_basis(text, integer) from public, anon, authenticated;

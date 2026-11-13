@@ -3,14 +3,21 @@
 -- Einspielen wie eine Migration (-v ON_ERROR_STOP=1 -1), danach die Zeile 20261113082550 aus
 -- supabase_migrations.schema_migrations löschen und tools/schema-snapshot.sh laufen lassen.
 -- Vorher den Rollback der Datenmigration iu1_pruefziel_msa einspielen (oder dieser löscht die Tabellen mit).
--- Stellt lsa_skill_bereit_roh, pruef_ziel_roh, pruef_ziel_liste, lsa_paket_cache_auffrischen und
--- lsa_paket_cache_trigger byte-gleich wie vor IU-1 her (Körper aus schema-erwartet.sql, Stand 75489322).
+-- Stellt lsa_skill_bereit_roh, pruef_ziel_roh und pruef_ziel_liste byte-gleich wie vor IU-1 her (Körper aus
+-- schema-erwartet.sql, Stand 75489322). lsa_paket_cache_auffrischen und lsa_paket_cache_trigger behalten bewusst
+-- ihr WHERE (safeupdate, offen.md O1); sonst kommt der Fehler zurück. Sonst ist das Schema wie vor IU-1.
 
 drop trigger if exists inhalte_cache_tasks on public.tasks;
 drop trigger if exists inhalte_cache_task_solutions on public.task_solutions;
 drop trigger if exists inhalte_cache_task_pruefungen on public.task_pruefungen;
 drop trigger if exists inhalte_cache_session_einstellungen on public.session_einstellungen;
 drop trigger if exists inhalte_cache_skills on public.skills;
+drop trigger if exists inhalte_cache_task_pruef_ausschluss on public.task_pruef_ausschluss;
+drop trigger if exists inhalte_cache_task_pruefung_ausgang on public.task_pruefung_ausgang;
+drop trigger if exists inhalte_cache_task_reviews on public.task_reviews;
+drop trigger if exists inhalte_cache_task_figures on public.task_figures;
+drop trigger if exists inhalte_cache_pruef_einstellungen on public.pruef_einstellungen;
+drop trigger if exists inhalte_cache_skill_thema on public.skill_thema;
 drop trigger if exists inhalte_cache_pruefziele on public.pruefziele;
 drop trigger if exists inhalte_cache_pruefziel_skills on public.pruefziel_skills;
 drop trigger if exists inhalte_cache_pruefziel_ausschluss on public.pruefziel_ausschluss;
@@ -31,10 +38,12 @@ drop function if exists public.inhalte_thema_raum(text);
 drop function if exists public.inhalte_auffrischen();
 drop function if exists public.inhalte_cache_neu();
 drop function if exists public.inhalte_cache_trigger();
+drop function if exists public.inhalte_cache_frisch();
 drop function if exists public.inhalte_skill_stand(text);
 drop function if exists public.inhalte_skill_stand_roh(text);
 drop table if exists public.inhalte_skill_cache;
 drop table if exists public.inhalte_cache_stand;
+drop sequence if exists public.inhalte_cache_gen;
 
 drop function if exists public.pruef_ziel_roh(uuid[]);
 drop function if exists public.lsa_skill_bereit_roh(text, uuid[]);
@@ -188,7 +197,7 @@ begin
   perform pg_advisory_xact_lock(hashtext('lsa_paket_cache'));
   -- Stand vor der Rechnung; schreibt währenddessen jemand, ist gen danach größer und der Speicher bleibt veraltet.
   select s.gen into v_gen from public.lsa_paket_cache_stand s;
-  delete from public.lsa_paket_cache;
+  delete from public.lsa_paket_cache where schuljahr is not null;
   insert into public.lsa_paket_cache (schuljahr, schule_id, klasse, paket_nr, thema_keys, quelle, datum, quartal, lage,
                                       hat_einstieg)
   select v_sj, p.schule_id, p.klasse, p.paket_nr, p.thema_keys, p.quelle, p.datum, p.quartal, p.lage,
@@ -208,7 +217,7 @@ CREATE OR REPLACE FUNCTION public.lsa_paket_cache_trigger() RETURNS trigger
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  update public.lsa_paket_cache_stand set veraltet = true, gen = gen + 1;
+  update public.lsa_paket_cache_stand set veraltet = true, gen = gen + 1 where id;
   return null;
 end;
 $$;

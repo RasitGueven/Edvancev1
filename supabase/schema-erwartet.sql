@@ -6,7 +6,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict TinZe1qSyEicqvu4uLfQHDjt1cLAHCdgkkKpSgN4oSaJWThpfqp7Ag1yu1rrCcJ
+\restrict XGYUEFQwMDXicpUajkcSIFXkhAPgXfahRpKgbj2UZGdQCZAJNbeXbFI0MVic8tS
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -5990,7 +5990,7 @@ begin
     raise exception 'inhalte_auffrischen: nur Admins' using errcode = '42501';
   end if;
   perform public.lsa_abdeckung_auffrischen();
-  if exists (select 1 from public.inhalte_cache_stand s where not s.veraltet and s.fehler is null) then
+  if public.inhalte_cache_frisch() then
     return false;
   end if;
   if exists (select 1 from public.inhalte_cache_stand s
@@ -6010,6 +6010,20 @@ $$;
 
 
 --
+-- Name: inhalte_cache_frisch(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.inhalte_cache_frisch() RETURNS boolean
+    LANGUAGE sql STABLE SECURITY DEFINER
+    SET search_path TO 'public', 'pg_temp'
+    AS $$
+  select exists (select 1 from public.inhalte_cache_stand s, public.inhalte_cache_gen g
+                  where s.fehler is null and s.gen = g.last_value and g.is_called
+                    and s.berechnet_am > now() - interval '15 minutes')
+$$;
+
+
+--
 -- Name: inhalte_cache_neu(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -6021,15 +6035,13 @@ declare
   v_gen bigint;
 begin
   perform pg_advisory_xact_lock(hashtext('inhalte_skill_cache'));
-  select s.gen into v_gen from public.inhalte_cache_stand s;
-  delete from public.inhalte_skill_cache where true;
+  v_gen := nextval('public.inhalte_cache_gen');
+  delete from public.inhalte_skill_cache where pruefziel is not null;
   insert into public.inhalte_skill_cache
   select '', r.* from public.inhalte_skill_stand_roh(null) r;
   insert into public.inhalte_skill_cache
   select z.key, r.* from public.pruefziele z cross join lateral public.inhalte_skill_stand_roh(z.key) r;
-  update public.inhalte_cache_stand
-     set berechnet_am = now(), fehler = null, veraltet = gen is distinct from coalesce(v_gen, 0)
-   where id;
+  update public.inhalte_cache_stand set berechnet_am = now(), fehler = null, gen = v_gen where id;
 end;
 $$;
 
@@ -6043,7 +6055,7 @@ CREATE FUNCTION public.inhalte_cache_trigger() RETURNS trigger
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  update public.inhalte_cache_stand set veraltet = true, gen = gen + 1 where id;
+  perform nextval('public.inhalte_cache_gen');
   return null;
 end;
 $$;
@@ -6090,7 +6102,7 @@ $$;
 -- Name: inhalte_lsa_thema(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION public.inhalte_lsa_thema(p_thema_key text) RETURNS TABLE(skill_key text, label text, teil text, art text, texte integer, erfuellt boolean, zu_pruefen integer, fehlen integer, offene_task_ids uuid[])
+CREATE FUNCTION public.inhalte_lsa_thema(p_thema_key text) RETURNS TABLE(skill_key text, label text, teil text, rolle text, texte integer, erfuellt boolean, zu_pruefen integer, fehlen integer, offene_task_ids uuid[])
     LANGUAGE plpgsql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
@@ -6213,6 +6225,7 @@ begin
            (count(*) filter (where b.status in ('rueckfrage', 'beanstandet')))::int rueck,
            (count(*) filter (where b.status = 'zur_pruefung'))::int zu,
            (count(*) filter (where b.status = 'zur_freigabe'))::int zur,
+           (count(*) filter (where b.status in ('entwurf', 'pausiert')))::int entw,
            (select case when count(*) = 0 then null
                         when bool_and(v.status = 'freigegeben') then 'freigegeben'
                         when bool_or(v.status = 'fehlt') then 'fehlt' else 'in_pruefung' end
@@ -6222,6 +6235,7 @@ begin
   select je.nr, je.titel, je.n, je.gepr, je.frei, je.rueck, je.zu, je.zur, je.video,
          case when je.zu > 0 then 'lena_prueft'
               when je.rueck > 0 then 'rueckfrage'
+              when je.entw > 0 then 'entwurf'
               when je.zur > 0 then 'admin_gibt_frei'
               when coalesce(je.video, 'freigegeben') <> 'freigegeben' then 'video'
               else 'fertig' end
@@ -6309,7 +6323,7 @@ CREATE FUNCTION public.inhalte_skill_stand(p_pruefziel text DEFAULT NULL::text) 
     AS $$
 #variable_conflict use_column
 begin
-  if exists (select 1 from public.inhalte_cache_stand s where not s.veraltet and s.fehler is null) then
+  if public.inhalte_cache_frisch() then
     return query select c.skill_key, c.texte, c.erfuellt, c.frei, c.zur_freigabe, c.zu_pruefen, c.fehlen, c.zu_leicht,
                         c.offene_task_ids
                    from public.inhalte_skill_cache c where c.pruefziel = coalesce(p_pruefziel, '');
@@ -6364,11 +6378,15 @@ CREATE FUNCTION public.inhalte_thema_raum(p_schuljahr text) RETURNS TABLE(thema_
     LANGUAGE sql STABLE SECURITY DEFINER
     SET search_path TO 'public', 'pg_temp'
     AS $$
-  select distinct p.thema_keys[1], s.skill_key, s.teil, s.pflicht
-    from public.lsa_pakete_basis(p_schuljahr) p
-    join public.lsa_paket_skills_basis(p_schuljahr) s
-      on s.schule_id = p.schule_id and s.klasse = p.klasse and s.paket_nr = p.paket_nr
-   where s.fall = 'A' and cardinality(p.thema_keys) = 1
+  select x.thema_key, x.skill_key, (array['einstieg', 'voraussetzung', 'tiefe'])[min(x.r)], min(x.r) <= 2
+    from (select e.thema_key, e.skill_key, 1 r from public.thema_einstieg e
+          union all
+          select e.thema_key, k.voraussetzt_skill_key, 2
+            from public.thema_einstieg e join public.skill_kante k on k.skill_key = e.skill_key
+          union all
+          select e.thema_key, a.skill_key, 3
+            from public.thema_einstieg e cross join lateral public.lsa_abschluss(e.skill_key) a) x
+   group by x.thema_key, x.skill_key
 $$;
 
 
@@ -6388,9 +6406,10 @@ CREATE FUNCTION public.inhalte_themen_basis(p_schuljahr text, p_klasse integer D
     select distinct on (pt.thema_key) pt.thema_key, pt.klasse
       from (select thema_key, klasse, count(distinct schule_id) n from pt group by 1, 2) pt
      order by pt.thema_key, pt.n desc, pt.klasse),
-  q as (
+  q as (   -- Zeitfenster aus den Paketen der Klasse des Themas; Schulen über alle Klassen der Auswahl
     select distinct on (x.thema_key) x.thema_key, x.quartal, x.von, x.bis
-      from (select thema_key, quartal, count(*) n, min(datum) von, max(datum) bis from pt group by 1, 2) x
+      from (select pt.thema_key, pt.quartal, count(*) n, min(pt.datum) von, max(pt.datum) bis
+              from pt join kl on kl.thema_key = pt.thema_key and kl.klasse = pt.klasse group by 1, 2) x
      order by x.thema_key, x.n desc, x.quartal),
   sch as (
     select thema_key, count(distinct schule_id)::int schulen,
@@ -9610,8 +9629,8 @@ begin
   perform pg_advisory_xact_lock(hashtext('lsa_paket_cache'));
   -- Stand vor der Rechnung; schreibt währenddessen jemand, ist gen danach größer und der Speicher bleibt veraltet.
   select s.gen into v_gen from public.lsa_paket_cache_stand s;
-  -- IU-1: „where true“, sonst bricht safeupdate (Rolle authenticator) den Aufruf aus der App ab.
-  delete from public.lsa_paket_cache where true;
+  -- IU-1: mit WHERE, sonst bricht safeupdate (Rolle authenticator) den Aufruf aus der App ab.
+  delete from public.lsa_paket_cache where schuljahr is not null;
   insert into public.lsa_paket_cache (schuljahr, schule_id, klasse, paket_nr, thema_keys, quelle, datum, quartal, lage,
                                       hat_einstieg)
   select v_sj, p.schule_id, p.klasse, p.paket_nr, p.thema_keys, p.quelle, p.datum, p.quartal, p.lage,
@@ -27987,14 +28006,25 @@ CREATE TABLE public.home_uebung (
 
 
 --
+-- Name: inhalte_cache_gen; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.inhalte_cache_gen
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
 -- Name: inhalte_cache_stand; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.inhalte_cache_stand (
     id boolean DEFAULT true NOT NULL,
     berechnet_am timestamp with time zone,
-    veraltet boolean DEFAULT true NOT NULL,
-    gen bigint DEFAULT 0 NOT NULL,
+    gen bigint,
     fehler text,
     CONSTRAINT inhalte_cache_stand_id_check CHECK (id)
 );
@@ -33400,6 +33430,13 @@ CREATE TRIGGER home_uebung_append_only BEFORE DELETE OR UPDATE ON public.home_ue
 
 
 --
+-- Name: pruef_einstellungen inhalte_cache_pruef_einstellungen; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_pruef_einstellungen AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.pruef_einstellungen FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
 -- Name: pruefziel_ausschluss inhalte_cache_pruefziel_ausschluss; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -33428,6 +33465,13 @@ CREATE TRIGGER inhalte_cache_session_einstellungen AFTER INSERT OR DELETE OR UPD
 
 
 --
+-- Name: skill_thema inhalte_cache_skill_thema; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_skill_thema AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.skill_thema FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
 -- Name: skills inhalte_cache_skills; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -33435,10 +33479,38 @@ CREATE TRIGGER inhalte_cache_skills AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE
 
 
 --
+-- Name: task_figures inhalte_cache_task_figures; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_figures AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_figures FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_pruef_ausschluss inhalte_cache_task_pruef_ausschluss; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_pruef_ausschluss AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_pruef_ausschluss FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_pruefung_ausgang inhalte_cache_task_pruefung_ausgang; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_pruefung_ausgang AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_pruefung_ausgang FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
 -- Name: task_pruefungen inhalte_cache_task_pruefungen; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER inhalte_cache_task_pruefungen AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_pruefungen FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
+
+
+--
+-- Name: task_reviews inhalte_cache_task_reviews; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER inhalte_cache_task_reviews AFTER INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.task_reviews FOR EACH STATEMENT EXECUTE FUNCTION public.inhalte_cache_trigger();
 
 
 --
@@ -39361,5 +39433,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict TinZe1qSyEicqvu4uLfQHDjt1cLAHCdgkkKpSgN4oSaJWThpfqp7Ag1yu1rrCcJ
+\unrestrict XGYUEFQwMDXicpUajkcSIFXkhAPgXfahRpKgbj2UZGdQCZAJNbeXbFI0MVic8tS
 

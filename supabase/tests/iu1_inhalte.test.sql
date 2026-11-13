@@ -25,7 +25,7 @@ begin;
 alter table public.tasks alter column einsatz set default '{lsa}';
 create extension if not exists pgtap with schema extensions;
 
-select plan(48);
+select plan(54);
 
 delete from schul_themenplan;
 delete from schul_klassenarbeiten;
@@ -95,7 +95,7 @@ select results_eq(
       (select id from schulen where name = 'IU Schule A'), 9, 1) where fall = 'A' order by skill_key$$,
   '1a: Themenraum = Fall A der Pakete');
 select results_eq(
-  $$select skill_key, teil, art from inhalte_lsa_thema('iu_t1')$$,
+  $$select skill_key, teil, rolle from inhalte_lsa_thema('iu_t1')$$,
   $$values ('iu_e1', 'pflicht', 'einstieg'), ('iu_v1', 'pflicht', 'voraussetzung'), ('iu_d1', 'tiefe', 'tiefe')$$,
   '1b: Pflicht = Einstieg und direkte Voraussetzung, Tiefe = Rest, Pflicht zuerst');
 select results_eq(
@@ -194,13 +194,13 @@ select results_eq(
 create temp table live as select * from inhalte_lsa_themen(9);
 create temp table live_ziel as select * from inhalte_lsa_pruefziel('iu_ziel');
 select is(inhalte_auffrischen(), true, '6a: auffrischen rechnet neu');
-select is((select veraltet from inhalte_cache_stand), false, '6b: Speicher frisch');
+select is(inhalte_cache_frisch(), true, '6b: Speicher frisch');
 select results_eq($$select * from inhalte_lsa_themen(9)$$, $$select * from live$$, '6c: Speicher = live (Themen)');
 select results_eq($$select * from inhalte_lsa_pruefziel('iu_ziel')$$, $$select * from live_ziel$$,
   '6d: Speicher = live (Prüfziel)');
 select is(inhalte_auffrischen(), false, '6e: frisch → nichts zu tun');
 select pg_temp.aufgabe('iu_e2', 'Text E2 drei');
-select is((select veraltet from inhalte_cache_stand), true, '6f: neue Aufgabe → veraltet');
+select is(inhalte_cache_frisch(), false, '6f: neue Aufgabe → nicht mehr frisch');
 select is((select (texte, erfuellt)::text from inhalte_lsa_thema('iu_t2') where skill_key = 'iu_e2'), '(2,t)',
   '6g: veraltet → live (neue Aufgabe zählt sofort)');
 
@@ -219,6 +219,18 @@ select throws_ok($$select * from inhalte_session_reihen()$$, '42501', null, '7f:
 select set_config('request.jwt.claims', json_build_object('sub', :'kind_uid', 'role', 'authenticated')::text, true);
 select throws_ok($$select * from pruef_ziel_stand('iu_ziel')$$, '42501', null, '7g: Kind: kein Stand');
 select throws_ok($$select * from inhalte_lsa_pruefziel('iu_ziel')$$, '42501', null, '7h: Kind: kein Prüfziel');
+-- Grants als Rolle authenticated: öffentliche Funktionen ja, innere nein, Tabellen nur über RLS.
+select set_config('request.jwt.claims', json_build_object('sub', :'admin_uid', 'role', 'authenticated')::text, true);
+set local role authenticated;
+select ok((select count(*) from inhalte_lsa_themen(9)) > 0, '7i: authenticated (Admin) darf inhalte_lsa_themen');
+select throws_ok($$select * from inhalte_skill_stand_roh(null)$$, '42501', null, '7j: innere Funktion gesperrt');
+select throws_ok($$select * from pruef_ziel_roh()$$, '42501', null, '7k: pruef_ziel_roh gesperrt');
+select ok((select count(*) from pruefziel_skills where pruefziel = 'iu_ziel') = 3, '7l: Admin liest Prüfziel (RLS)');
+reset role;
+select set_config('request.jwt.claims', json_build_object('sub', :'kind_uid', 'role', 'authenticated')::text, true);
+set local role authenticated;
+select is((select count(*)::int from pruefziel_skills), 0, '7m: Kind sieht keine Prüfziel-Zeilen (RLS)');
+reset role;
 select set_config('request.jwt.claims', json_build_object('sub', :'admin_uid', 'role', 'authenticated')::text, true);
 
 -- ============================================================================
@@ -239,6 +251,8 @@ select results_eq(
 select results_eq(
   $$select sum(bauformen)::int, sum(rueckfrage)::int, sum(zu_pruefen)::int from inhalte_session_reihe('iu_reihe')$$,
   $$values (3, 1, 1)$$, '8b: Sessions summieren sich zur Reihe');
+update bauformen set status = 'entwurf' where reihe = 'iu_reihe';
+select is((select naechster_schritt from inhalte_session_reihe('iu_reihe')), 'entwurf', '8e: nur Entwürfe → Entwurf, nicht fertig');
 select is((select array_agg(thema_key order by thema_key) from inhalte_themen_ohne_reihe(9) where thema_key like 'iu_%'),
   array['iu_t1'], '8c: Themen ohne Reihe: iu_t2 hat eine Reihe');
 select is((select (bauformen, vorarbeit)::text from inhalte_themen_ohne_reihe(9) where thema_key = 'iu_t1'),
