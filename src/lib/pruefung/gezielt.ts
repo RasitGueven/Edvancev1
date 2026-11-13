@@ -1,7 +1,7 @@
 // FR-2 F3: gezielte Prüfliste für Lena (pruef_ziel_liste). Reine Rechnungen für die Übersicht und den Lauf in der
 // Prüfansicht (?liste=gezielt): Reihenfolge der Aufgaben, nächste offene Aufgabe, Stand und Gruppen nach Thema.
 
-import type { LsaWirkungZeile, PruefBoardZeile, PruefZielZeile } from '@/types'
+import type { LsaWirkungZeile, PruefBoardZeile, PruefZielStandZeile, PruefZielZeile } from '@/types'
 
 /** Aufgaben der gezielten Liste in Reihenfolge (sort der Skills, darin die Vorschläge der Reihe nach). */
 export function zielReihe(liste: PruefZielZeile[]): string[] {
@@ -58,4 +58,39 @@ export function bereiteSchulen(wirkung: LsaWirkungZeile[]): number {
 /** Schulen, die durch die Wirkung ihre erste LSA im Fenster bekommen (schule_neu). */
 export function neueSchulen(wirkung: LsaWirkungZeile[]): number {
   return new Set(wirkung.filter((w) => w.schule_neu).map((w) => w.schule_id)).size
+}
+
+// ── IU-1 U3: Prüfziel (z. B. MSA) ─────────────────────────────────────────────────────────────────────────────────
+
+export type ZielBereich = {
+  bereich: string
+  /** Kompetenzen mit Vorschlägen für Lena (Zeilen der Liste), in Listenreihenfolge, mit Stand (texte). */
+  offen: { zeile: PruefZielZeile; texte: number }[]
+  /** Kompetenzen, die die Regel schon erfüllen (eingeklappt mit Haken). */
+  erledigt: PruefZielStandZeile[]
+  /** Kompetenzen ohne Erfüllung und ohne Vorschlag (Aufgaben fehlen). */
+  ohneVorschlag: PruefZielStandZeile[]
+}
+
+/** Gruppen nach Bereich des Prüfziels; Reihenfolge der Bereiche wie im Stand (alphabetisch aus der Datenbank). */
+export function zielBereiche(liste: PruefZielZeile[], stand: PruefZielStandZeile[]): ZielBereich[] {
+  const zeile = new Map(liste.filter((z) => z.abschnitt === 'gezielt').map((z) => [z.skill_key, z]))
+  const je = new Map<string, ZielBereich>()
+  for (const s of stand) {
+    const g = je.get(s.bereich) ?? { bereich: s.bereich, offen: [], erledigt: [], ohneVorschlag: [] }
+    const z = zeile.get(s.skill_key)
+    if (s.erfuellt) g.erledigt.push(s)
+    else if (z) g.offen.push({ zeile: z, texte: s.texte })
+    else g.ohneVorschlag.push(s)
+    je.set(s.bereich, g)
+  }
+  for (const g of je.values()) g.offen.sort((a, b) => a.zeile.sort - b.zeile.sort)
+  return [...je.values()]
+}
+
+/** Fortschritt zum Prüfziel in Prozent: belegte Texte über alle Kompetenzen (erledigte zählen mit). */
+export function zielAnteil(stand: PruefZielStandZeile[], regel = 2): number {
+  if (stand.length === 0) return 100
+  const ist = stand.reduce((n, s) => n + Math.min(s.texte, regel), 0)
+  return Math.round((ist / (stand.length * regel)) * 100)
 }

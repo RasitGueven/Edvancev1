@@ -541,6 +541,32 @@
     "wirkung_one": "Nach der Freigabe ist {{thema}} an {{count}} Schule bereit.",
     "wirkung_other": "Nach der Freigabe ist {{thema}} an {{count}} Schulen bereit.",
     "wirkungSchritt_one": "Nach der Freigabe ist {{thema}} an {{count}} Schule einen Schritt weiter.",
-    "wirkungSchritt_other": "Nach der Freigabe ist {{thema}} an {{count}} Schulen einen Schritt weiter."
+    "wirkungSchritt_other": "Nach der Freigabe ist {{thema}} an {{count}} Schulen einen Schritt weiter.",
+    "ziel": {
+      "label": "Prüfziel",
+      "alle": "Alle",
+      "msa_zp10": "MSA (ZP10)",
+      "kopf_one": "Noch {{count}} Aufgabe · danach ist die MSA-LSA möglich",
+      "kopf_other": "Noch {{count}} Aufgaben · danach ist die MSA-LSA möglich",
+      "fertig": "Alle Kompetenzen der MSA sind belegt. Danke!",
+      "fortschritt": "Fortschritt zur MSA-LSA",
+      "nVon": "{{n}} von 2",
+      "erledigt_one": "{{count}} Kompetenz erledigt",
+      "erledigt_other": "{{count}} Kompetenzen erledigt",
+      "erledigtHaken": "erledigt",
+      "ohneVorschlag_one": "{{count}} Kompetenz ohne Aufgabe zum Prüfen (es fehlen noch Aufgaben)",
+      "ohneVorschlag_other": "{{count}} Kompetenzen ohne Aufgabe zum Prüfen (es fehlen noch Aufgaben)",
+      "bereich": {
+        "arithmetik_algebra": "Arithmetik und Algebra",
+        "funktionen": "Funktionen",
+        "geometrie": "Geometrie",
+        "stochastik": "Stochastik"
+      }
+    },
+    "filter": {
+      "gefiltert": "Gefiltert: {{kompetenz}}",
+      "aufheben": "Filter aufheben",
+      "leer": "Für diese Kompetenz gibt es gerade nichts zu prüfen."
+    }
   }
 }

@@ -45,3 +45,12 @@ Einspielen.** U1 ist fertig vorbereitet (PR, lokal grün, Zweitprüfung), aber n
 - Lenas `pruef_ziel_stand` rechnet live (1–2 s), solange der Speicher nicht frisch ist; auffrischen dürfen nur Admins.
 - Ohne Klassenfilter zählen die Schulen eines Themas über alle Klassen 8–10, Klasse und Zeitfenster kommen aus der
   Klasse mit den meisten Schulen.
+
+## O6 · Lauf in der Prüfansicht folgt der Gesamtliste (U3)
+
+„Gezielt prüfen“ mit Prüfziel MSA öffnet die Prüfansicht wie bisher mit `?liste=gezielt`. Nach einer Entscheidung
+springt die Prüfansicht zur nächsten Aufgabe der **Gesamtliste** (`pruef_ziel_liste()` ohne Prüfziel), nicht der
+MSA-Liste. Die 20 MSA-Kompetenzen ohne Paket kommen dort nicht vor. Lena muss dann über „Zurück zur Liste“ die
+nächste MSA-Aufgabe wählen. Der Prüfablauf sollte laut Auftrag unverändert bleiben, deshalb bleibt das so. Die
+Abhilfe wäre klein: das Prüfziel in `?liste=gezielt&ziel=msa_zp10` mitgeben und im Lauf
+(`src/pages/coach/pruefen/PruefansichtPage.tsx`) an `getPruefZielListe` weiterreichen.
