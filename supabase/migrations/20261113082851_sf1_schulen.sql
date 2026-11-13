@@ -51,7 +51,7 @@ select v.schulnummer, v.name, v.ort, v.schulform, v.traeger, v.website
   ('183726', 'Gesamtschule Köln-Holweide', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.gesamtschule-holweide.de'),
   ('184287', 'Heinrich-Böll-Schule', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.hbg-koeln.de'),
   ('184913', 'Lise-Meitner-Gesamtschule', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.lmgporz.de'),
-  ('184937', 'Willy-Brandt-Gesamtschule', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.wbgs-koeln.de'),
+  ('184937', 'Willy-Brandt-Gesamtschule Köln', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.wbgs-koeln.de'),
   ('185176', 'Europaschule Köln, Gesamtschule Zollstock', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.europaschulekoeln.eu/'),
   ('187902', 'Max-Ernst-Gesamtschule', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.max-ernst-gesamtschule-koeln.de'),
   ('188165', 'Katharina-Henoth-Schule', 'Köln', 'Gesamtschule', 'öffentlich', 'http://www.igs-kathi.de'),

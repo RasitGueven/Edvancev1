@@ -54,7 +54,7 @@ NAME = {
     "183726": "Gesamtschule Köln-Holweide",
     "184287": "Heinrich-Böll-Schule",
     "184913": "Lise-Meitner-Gesamtschule",
-    "184937": "Willy-Brandt-Gesamtschule",
+    "184937": "Willy-Brandt-Gesamtschule Köln",
     "185176": "Europaschule Köln, Gesamtschule Zollstock",
     "187902": "Max-Ernst-Gesamtschule",
     "188165": "Katharina-Henoth-Schule",
@@ -65,8 +65,8 @@ NAME = {
     "198742": "Trude-Herr-Gesamtschule",
     "198912": "igis Köln, Integrierte Gesamtschule Innenstadt",
     # Gesamtschule Kerpen
-    # Ort im Namen: In Köln gibt es eine gleichnamige Schule (184937); lsa_schule_von_sitzung sucht den
-    # Freitext ohne Ort und braucht einen eindeutigen Treffer.
+    # Ort im Namen, auch bei 184937 (Köln): lsa_schule_von_sitzung sucht den Freitext ohne Ort. So trifft ein
+    # Freitext „Willy-Brandt-Gesamtschule“ keine von beiden statt still die falsche.
     "191942": "Willy-Brandt-Gesamtschule Kerpen",
 }
 

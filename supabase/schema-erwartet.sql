@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict hsZ5cVZ1TYoPHKWh820FVN2Peimv71hMbnMoYIOShwIJvpAtcb2EOLboyr8ubCx
+\restrict pKRRVkOxbYcJq5g8uir9NnlYE0gAGkQEHiKdnDMMHgXHcWNuT7biQwy1aWkOYn5
 
 -- Dumped from database version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
 -- Dumped by pg_dump version 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)
@@ -6383,7 +6383,7 @@ CREATE FUNCTION public.kind_kurs_stempel() RETURNS trigger
     SET search_path TO 'public', 'pg_temp'
     AS $$
 begin
-  new.erfasst_am := now();
+  new.erfasst_am := clock_timestamp();
   return new;
 end;
 $$;
@@ -38745,5 +38745,5 @@ CREATE POLICY zugangscode_versuche_admin_lesen ON public.zugangscode_versuche FO
 -- PostgreSQL database dump complete
 --
 
-\unrestrict hsZ5cVZ1TYoPHKWh820FVN2Peimv71hMbnMoYIOShwIJvpAtcb2EOLboyr8ubCx
+\unrestrict pKRRVkOxbYcJq5g8uir9NnlYE0gAGkQEHiKdnDMMHgXHcWNuT7biQwy1aWkOYn5
 

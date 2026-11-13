@@ -73,13 +73,14 @@ $$;
 create trigger kind_kurs_nur_anhaengen before update or delete on public.kind_kurs
   for each row execute function public.kind_kurs_nur_anhaengen();
 
--- Erfassungszeit setzt die Datenbank, nicht der Client (sonst ließe sich der Verlauf rückdatieren).
+-- Erfassungszeit setzt die Datenbank, nicht der Client (sonst ließe sich der Verlauf rückdatieren); clock_timestamp,
+-- damit mehrere Zeilen in einer Transaktion eine eindeutige Reihenfolge haben.
 create function public.kind_kurs_stempel() returns trigger
   language plpgsql
   set search_path to 'public', 'pg_temp'
   as $$
 begin
-  new.erfasst_am := now();
+  new.erfasst_am := clock_timestamp();
   return new;
 end;
 $$;
