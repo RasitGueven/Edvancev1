@@ -8,6 +8,7 @@ export const SCHOOL_TYPES: SchoolKind[] = [
   'Gymnasium',
   'Gesamtschule',
   'Realschule',
+  'Sekundarschule',
   'Hauptschule',
 ]
 

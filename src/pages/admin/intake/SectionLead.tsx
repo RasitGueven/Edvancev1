@@ -93,7 +93,7 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
             <option value="">{t('intake.lead.none')}</option>
             {SCHOOL_TYPES.map((type) => (
               <option key={type} value={type}>
-                {type}
+                {t(`intake.optionen.schulform.${type}`)}
               </option>
             ))}
           </select>
