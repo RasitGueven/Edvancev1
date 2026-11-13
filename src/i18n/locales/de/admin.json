@@ -298,6 +298,13 @@
         "konzentration": "Konzentration",
         "pruefungsangst": "Prüfungsangst",
         "zeiteinteilung": "Zeiteinteilung"
+      },
+      "schulform": {
+        "Gymnasium": "Gymnasium",
+        "Gesamtschule": "Gesamtschule",
+        "Realschule": "Realschule",
+        "Sekundarschule": "Sekundarschule",
+        "Hauptschule": "Hauptschule"
       }
     },
     "freigabe": {
