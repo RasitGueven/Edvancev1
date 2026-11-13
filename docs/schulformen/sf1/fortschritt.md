@@ -15,8 +15,16 @@
 | 13.11.2026 | S1 | Einspielen | **angehalten**: CI `neuaufbau` rot (nur `pg_attver`-Zeilen, „erwartet, nicht erzeugt“ leer) |
 | 13.11.2026 | S3 | Intake, Vertrag, Akte; Ansichtstests 16/16; Vitest 3383 | PR #415 (Entwurf, hängt an #414) |
 | 13.11.2026 | S2/S4 | IU-1 U1/U2 nicht auf `origin/dev` | warten |
+| 13.11.2026 | – | Wiederaufnahme nach WSL-Neustart: Worktree sauber, Prod ohne SF-1-Migration | nichts halb eingespielt |
+| 13.11.2026 | – | IU-1 #417 „CI: pg_attver im Schema-Vergleich ignorieren“ in `dev` | Haltepunkt aufgehoben |
+| 13.11.2026 | S0–S3 | `origin/dev` eingemischt (Force-Push per Hook gesperrt, daher Merge statt Rebase) | CI grün (#414: `session_a2` Test 15 mit 200,2 ms, Neulauf grün) |
+| 13.11.2026 | S0 | PR #413 | gemergt |
+| 13.11.2026 | S1 | `20261113082727_sf1_schulformen_kurs`, `20261113082851_sf1_schulen` per `~/bin/mig` in Prod | eingespielt; 90 Schulen, 46 mit Schulnummer, Trigger `kind_kurs_von_lead` da |
+| 13.11.2026 | S1 | Prod-Abzug gegen `schema-erwartet.sql` | alle SF-1-Zeilen da, alte CHECKs weg; übrige Abweichung nur IU-1 U1 (in Prod vor `dev` eingespielt, #416 offen) |
+| 13.11.2026 | S1 | PR #414 | gemergt |
+| 13.11.2026 | S3 | Vertrag: Hinweis, wenn die Lead-Angabe zum Mathe-Kurs beim Abschluss verfällt (`KursHinweis`, ohne Schemaänderung) | Vitest 2/2, Typecheck grün |
 
-## Haltepunkt 13.11.2026
+## Haltepunkt 13.11.2026 (aufgehoben durch #417)
 
 `neuaufbau` ist seit dem Runner-Image `ubuntu26/20261101.186` für jede PR rot (auch IU-1 #412): `pg_dump` gibt
 `ALTER TABLE ONLY … ALTER COLUMN … SET (pg_attver=…)` aus. Abhilfe unter `.github/workflows/schema.yml` (darf SF-1
@@ -26,7 +34,8 @@ nicht ändern): `pg_attver` in den `grep -vE`-Filter beider Seiten aufnehmen ode
 
 - Lead trägt nur den Mathe-Kurs; E/G für Englisch/Deutsch am Lead nicht erfassbar (`kind_kurs` kann es).
 - `stadtteil` der 46 neuen Schulen leer (Verzeichnis hat keinen); Gymnasien ohne Schulnummer.
-- Hat ein Kind schon eine Mathe-Zeile, verfällt die Lead-Angabe beim Vertrag still.
+- ~~Hat ein Kind schon eine Mathe-Zeile, verfällt die Lead-Angabe beim Vertrag still.~~ Erledigt: Der Vertrag zeigt
+  den Hinweis, wenn Lead und Akte abweichen (#415).
 - Abschluss ESA (nach Kl. 9) nicht erfassbar (nicht verlangt).
 - Kerpener und Kölner Willy-Brandt-Gesamtschule tragen den Ort im Namen (Abweichung vom amtlichen Namen, damit die
   Freitext-Zuordnung der LSA nie die falsche Schule trifft).
