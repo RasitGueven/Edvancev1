@@ -27,6 +27,7 @@ const task = (id: string, kurztitel: string): PruefBoardZeile => ({
 const board = [task('t1', 'Aufgabe Wurzel'), task('t2', 'Aufgabe Kegel')]
 
 beforeEach(() => {
+  sessionStorage.clear()
   m.liste.mockReset().mockImplementation((_f: boolean, _q: null, filter: { ziel?: string | null; skill?: string | null }) =>
     ok(filter.ziel
       ? [zeile('wurzel', 'Wurzeln', ['t1']), zeile('kegel', 'Kegel', ['t2'], { rest: 2, hebel_schulen: 0 })]
@@ -65,11 +66,18 @@ describe('Gezielt prüfen mit Prüfziel', () => {
     expect(await screen.findByText('Noch 3 Aufgaben · danach ist die MSA-LSA möglich')).toBeInTheDocument()
     expect(screen.getByTestId('adresse')).toHaveTextContent('?ziel=msa_zp10')
     const algebra = screen.getByTestId('bereich-arithmetik_algebra')
-    expect(within(algebra).getByRole('heading', { name: 'Arithmetik und Algebra' })).toBeInTheDocument()
+    expect(within(algebra).getByRole('button', { name: /^Arithmetik und Algebra\s*1 Aufgabe offen/ })).toHaveAttribute('aria-expanded', 'true')
     expect(within(algebra).getByText('1 von 2')).toBeInTheDocument()
     expect(within(algebra).getByText('1 Kompetenz erledigt')).toBeInTheDocument()
     expect(within(algebra).getByText('Brüche')).not.toBeVisible()
-    expect(within(screen.getByTestId('bereich-geometrie')).getByText('Aufgabe Kegel')).toBeInTheDocument()
+    // Nur der erste Bereich mit offenen Aufgaben ist offen; Geometrie zeigt im Kopf, was offen ist.
+    const geo = screen.getByTestId('bereich-geometrie')
+    const kopf = within(geo).getByRole('button', { name: /^Geometrie\s*2 Aufgaben offen/ })
+    expect(kopf).toHaveAttribute('aria-expanded', 'false')
+    expect(within(geo).queryByText('Aufgabe Kegel')).toBeNull()
+    fireEvent.click(kopf)
+    expect(within(geo).getByText('Aufgabe Kegel')).toBeInTheDocument()
+    expect(JSON.parse(sessionStorage.getItem('gezielt-bereiche-msa_zp10') ?? '[]')).toEqual(['arithmetik_algebra', 'geometrie'])
     // Fortschritt zählt die erledigte Kompetenz mit: (1 + 2 + 0) / 6 = 50 %.
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '50')
   })
@@ -83,5 +91,13 @@ describe('Gezielt prüfen mit Prüfziel', () => {
     await waitFor(() => expect(screen.getByTestId('adresse')).toHaveTextContent('?ziel=msa_zp10'))
     expect(screen.getByTestId('adresse')).not.toHaveTextContent('skill')
     expect(await screen.findByTestId('bereich-geometrie')).toBeInTheDocument()
+  })
+
+  it('Klappzustand bleibt beim Zurückkommen erhalten', async () => {
+    sessionStorage.setItem('gezielt-bereiche-msa_zp10', JSON.stringify(['geometrie']))
+    zeige('?ziel=msa_zp10')
+    const geo = await screen.findByTestId('bereich-geometrie')
+    expect(within(geo).getByText('Aufgabe Kegel')).toBeInTheDocument()
+    expect(within(screen.getByTestId('bereich-arithmetik_algebra')).getByRole('button', { name: /^Arithmetik/ })).toHaveAttribute('aria-expanded', 'false')
   })
 })

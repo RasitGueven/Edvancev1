@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { InhalteReihe, InhalteThema } from '@/types/inhalte'
 import {
-  anteile, ansichtAusSuche, lenaListe, lsaKennzahlen, lsaSchritte, monate, reihenKennzahlen, reihenSchritte,
+  anteile, ansichtAusSuche, heuteIso, lsaReihenfolge, lenaListe, lsaKennzahlen, lsaSchritte, monate, reihenKennzahlen, reihenSchritte,
   sucheAusAnsicht,
 } from './uebersicht'
 
@@ -61,11 +61,25 @@ describe('Nächste Schritte', () => {
 
 describe('Anzeige', () => {
   it('Monate in Europe/Berlin', () => {
-    expect(monate('2026-11-16', '2027-01-20', 'de')).toEqual({ von: 'Nov', bis: 'Jan' })
+    expect(monate('2026-11-16', '2027-01-20', 'de')).toEqual({ von: 'Nov', bis: 'Jan', einMonat: false })
+    expect(monate('2027-03-02', '2027-03-28', 'de')).toEqual({ von: 'März', bis: 'März', einMonat: true })
     expect(monate(null, '2027-01-20', 'de')).toBeNull()
   })
   it('Anteile summieren auf 100, leer ist 0', () => {
     expect(anteile([1, 1, 2])).toEqual([25, 25, 50])
     expect(anteile([0, 0])).toEqual([0, 0])
+  })
+})
+
+describe('IU-1b Reihenfolge', () => {
+  it('laufende und kommende zuerst (Quartal, dann Schulen), vorbei ans Ende', () => {
+    const t = (key: string, quartal: number, schulen: number, bis: string | null) => ({ key, quartal, schulen, bis })
+    const r = lsaReihenfolge([t('alt', 1, 30, '2026-10-20'), t('q3', 3, 5, '2027-03-01'), t('jetzt', 1, 2, '2026-11-20'),
+      t('q2', 2, 27, '2027-01-10'), t('ohne', 2, 30, null)], '2026-11-13')
+    expect(r.laufend.map((x) => x.key)).toEqual(['jetzt', 'ohne', 'q2', 'q3'])
+    expect(r.vorbei.map((x) => x.key)).toEqual(['alt'])
+  })
+  it('heute in Europe/Berlin', () => {
+    expect(heuteIso(new Date('2026-11-13T23:30:00Z'))).toBe('2026-11-14')
   })
 })

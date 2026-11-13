@@ -6,6 +6,7 @@
 // P4: Der Lauf folgt dem Bedarf (naechsteNoetige): erst die noch noetigen Aufgaben, Thema fuer Thema; beim Wechsel
 // des Themas ein Zwischenbild. ?ohneSoll=1 nach "Weitere Aufgaben ohne Soll pruefen": der alte Weg.
 // FR-2 F3 ?liste=gezielt: weiter mit der naechsten offenen Aufgabe der gezielten Liste; nach "passt" die Wirkung.
+// IU-1b: mit &ziel= bzw. &skill= bleibt der Lauf in derselben Liste (MSA bleibt MSA, gefiltert bleibt gefiltert).
 
 import { useCallback, useEffect, useMemo, useState, type JSX } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
@@ -31,7 +32,7 @@ import { positionImThema, vorige } from '@/lib/pruefung/reihenfolge'
 import { sollDesThemas } from '@/lib/pruefung/soll'
 import { fehlerSchluessel } from '@/lib/pruefung/texte'
 import { getFehlbilder, getPruefBoard, getPruefEinstellungen, pruefEntscheiden, pruefRueckgaengig } from '@/lib/supabase/pruefung'
-import { bereiteSchulen, naechsteZiel, zielReihe } from '@/lib/pruefung/gezielt'
+import { bereiteSchulen, leseZielFilter, naechsteZiel, zielAnhang, zielReihe } from '@/lib/pruefung/gezielt'
 import { getLsaWirkung, getPruefZielListe } from '@/lib/supabase/lsaAbdeckung'
 import type { Fehlbild, LenaStatus, PasstNichtGrund, PruefBoardZeile, PruefEntscheidung, PruefSollZeile, PruefZielZeile } from '@/types'
 import { leseUebersprungen, merkeUebersprungen, vergissUebersprungen } from './uebersprungen'
@@ -56,6 +57,8 @@ export function PruefansichtPage(): JSX.Element {
   const board = useMemo(() => bereichsBoard(alle, bereich), [alle, bereich])
   const ohneSoll = params.get('ohneSoll') === '1'
   const gezielt = params.get('liste') === 'gezielt'
+  const { ziel: pruefziel, skill: zielSkill } = leseZielFilter(params)
+  const anhang = zielAnhang({ ziel: pruefziel, skill: zielSkill })
   const [ziel, setZiel] = useState<PruefZielZeile[]>([])
   const lauf = usePruefLauf(bereich)
   const [wechsel, setWechsel] = useState<Wechsel | null>(null)
@@ -76,8 +79,8 @@ export function PruefansichtPage(): JSX.Element {
     })
     void getFehlbilder().then((r) => r.data && setFehlbilder(r.data))
     void getPruefEinstellungen().then((r) => setGrundPflicht(r.data?.grund_pflicht ?? false))
-    if (gezielt) void getPruefZielListe().then((r) => r.data && setZiel(r.data))
-  }, [gezielt])
+    if (gezielt) void getPruefZielListe(false, null, { ziel: pruefziel, skill: zielSkill }).then((r) => r.data && setZiel(r.data))
+  }, [gezielt, pruefziel, zielSkill])
 
   useEffect(() => {
     setPanel(null)
@@ -114,9 +117,9 @@ export function PruefansichtPage(): JSX.Element {
 
   const geheZu = useCallback((id: string | null) => {
     const frei = ohneSoll ? '&ohneSoll=1' : ''
-    if (gezielt) return navigate(id ? `/coach/pruefen/${id}?bereich=${bereich}&liste=gezielt` : '/coach/pruefen')
+    if (gezielt) return navigate(id ? `/coach/pruefen/${id}?bereich=${bereich}&liste=gezielt${anhang}` : `/coach/pruefen${anhang.replace(/^&/, '?')}`)
     navigate(id ? `/coach/pruefen/${id}?bereich=${bereich}${frei}` : `/coach/pruefen?abschluss=1&bereich=${bereich}${frei}`)
-  }, [navigate, bereich, ohneSoll, gezielt])
+  }, [navigate, bereich, ohneSoll, gezielt, anhang])
 
   /** Naechster Schritt im Lauf: im Thema sofort weiter, beim Themen- oder Stufenwechsel erst das Zwischenbild. */
   const weiterNach = (b: PruefBoardZeile[], id: string, skip: string[], soll = lauf.soll): void => {
@@ -132,6 +135,8 @@ export function PruefansichtPage(): JSX.Element {
 
   const pause = async (): Promise<void> => {
     await s.sichern()
+    // IU-1b: aus dem gezielten Lauf zurück in dieselbe Liste (mit Prüfziel und Kompetenz).
+    if (gezielt) return navigate(`/coach/pruefen${anhang.replace(/^&/, '?')}`)
     navigate(`/coach/pruefen?thema=${encodeURIComponent(position?.thema_key ?? '')}&pause=1&bereich=${bereich}`)
   }
 

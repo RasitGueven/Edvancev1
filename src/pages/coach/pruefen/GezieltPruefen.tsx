@@ -11,10 +11,10 @@ import { useSearchParams } from 'react-router-dom'
 import { Info } from 'lucide-react'
 import { EdvanceCard, EmptyState, LoadingPulse } from '@/components/edvance'
 import { Button } from '@/components/ui'
-import { naechsteZiel, neueSchulen, zielGruppen, zielReihe, zielStand } from '@/lib/pruefung/gezielt'
+import { leseZielFilter, naechsteZiel, neueSchulen, zielGruppen, zielReihe, zielStand } from '@/lib/pruefung/gezielt'
 import { getLsaWirkung, getPruefZielListe, getPruefZielStand } from '@/lib/supabase/lsaAbdeckung'
 import type { PruefBoardZeile, PruefZielStandZeile, PruefZielZeile } from '@/types'
-import { AufgabenListe, FilterHinweis, PRUEFZIELE, ZielUmschalter } from './GezieltBausteine'
+import { AufgabenListe, FilterHinweis, ZielUmschalter } from './GezieltBausteine'
 import { GezieltMsa } from './GezieltMsa'
 import { leseUebersprungen } from './uebersprungen'
 
@@ -23,9 +23,7 @@ type Props = { board: PruefBoardZeile[]; onOeffne: (taskId: string) => void }
 export function GezieltPruefen({ board, onOeffne }: Props): JSX.Element {
   const { t } = useTranslation('pruefen')
   const [params, setParams] = useSearchParams()
-  const zielRoh = params.get('ziel')
-  const ziel = (PRUEFZIELE as readonly string[]).includes(zielRoh ?? '') ? zielRoh : null
-  const skill = params.get('skill')
+  const { ziel, skill } = leseZielFilter(params)
   const [liste, setListe] = useState<PruefZielZeile[] | null>(null)
   const [stand, setStand] = useState<PruefZielStandZeile[] | null>(null)
   const [fehler, setFehler] = useState(false)
@@ -80,7 +78,8 @@ export function GezieltPruefen({ board, onOeffne }: Props): JSX.Element {
     return (
       <div className="flex flex-col gap-6">
         {kopfzeile}
-        <GezieltMsa liste={liste} stand={sichtbar} board={board} onOeffne={onOeffne} gefiltert={Boolean(skill)} />
+        <GezieltMsa liste={liste} stand={sichtbar} board={board} onOeffne={onOeffne} gefiltert={Boolean(skill)}
+          zustand={ziel} />
       </div>
     )
   }
