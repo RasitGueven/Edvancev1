@@ -23,6 +23,16 @@
 | 13.11.2026 | S1 | Prod-Abzug gegen `schema-erwartet.sql` | alle SF-1-Zeilen da, alte CHECKs weg; übrige Abweichung nur IU-1 U1 (in Prod vor `dev` eingespielt, #416 offen) |
 | 13.11.2026 | S1 | PR #414 | gemergt |
 | 13.11.2026 | S3 | Vertrag: Hinweis, wenn die Lead-Angabe zum Mathe-Kurs beim Abschluss verfällt (`KursHinweis`, ohne Schemaänderung) | Vitest 2/2, Typecheck grün |
+| 13.11.2026 | S3 | PR #415 | gemergt |
+| 13.11.2026 | S2 | IU-1 U1 (#416) und U2 (#418) gemergt und eingespielt | S2 und S4 frei |
+| 13.11.2026 | S2 | KLP RS/GE 2004, RS/GESK 2022 ausgewertet (Subagent, pdftotext + Schriftschnitt) | 104 Zeilen `quellen/klp_themen.csv`, 10 Inhalte ohne Gegenstück → `offen.md` |
+| 13.11.2026 | S2 | Befund: KLP 2022 nimmt bedingte Wahrscheinlichkeit, Vierfeldertafel, a·sin(b·x) auf | `skill_schulform` mit Spalte `klp_fassung` (über das Auftragsschema hinaus) |
+| 13.11.2026 | S2 | Migrationen `20261113153241_sf1_klp_themenplan`, `20261113153302_sf1_pakete_klp` | 181 Zeilen `klp_themenplan`, 62 Sperren; Pakete Quelle `klp` |
+| 13.11.2026 | S2 | Regression Wegwerf-DB mit Prod-Abzug (`tools/sf1-wegwerf-db.sh`), 2026/27 + 2027/28 | Schulen mit Plan: 2.164 Pakete, 35.136 Skill-Zeilen vorher = nachher |
+| 13.11.2026 | S2 | Rollbacks in der Wegwerf-DB | Schema = Stand vor S2 |
+| 13.11.2026 | S2 | Zweitprüfung (frischer Subagent) | 2× „falsch“ (hat_einstieg mit gesperrten Einstiegen, Rollback-Guard), 1× „bricht“ (Schema-Abzug), behoben; Gegenprüfung ohne „falsch“/„bricht“ |
+| 13.11.2026 | S2 | Fachliche Stichprobe 22 Zeilen gegen KLP | 19 richtig, 3 teilweise, 0 falsch; 2 Korrekturen übernommen |
+| 13.11.2026 | S2 | pgTAP `sf1_klp` 37/37; volle Suite lokal grün bis auf `bekannt-rot.txt` (+ `lsa_testkinder`, nur lokal); Vitest 3407 | grün |
 
 ## Haltepunkt 13.11.2026 (aufgehoben durch #417)
 

@@ -647,7 +647,8 @@
     "geschaetzt": "geschätzt",
     "quelle": {
       "geschaetzt": "geschätzt aus dem Schulplan",
-      "bestaetigt": "bestätigt"
+      "bestaetigt": "bestätigt",
+      "klp": "nach Lehrplan"
     },
     "fokus": "Fokus-Schule",
     "fokusAn": "{{schule}} als Fokus-Schule markieren",
