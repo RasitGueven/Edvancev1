@@ -189,5 +189,15 @@
     "neuJa": "Neuen Code erzeugen",
     "fehlerLaden": "Geräte oder Zugangscode ließen sich nicht laden.",
     "fehlerAktion": "Das hat nicht geklappt. Bitte die Seite neu laden und noch einmal versuchen."
+  },
+  "kurs": {
+    "titel": "Kurs Mathe und Abschlussziel",
+    "leer": "Noch kein Kurs erfasst",
+    "leerHinweis": "Kurs und Abschlussziel helfen, die Lernstandsanalyse auf den richtigen Lehrplan auszurichten.",
+    "ab": "ab {{datum}}",
+    "abLabel": "Gilt ab",
+    "speichern": "Neuen Stand speichern",
+    "speichert": "Speichert …",
+    "leerePflicht": "Kurs oder Abschlussziel wählen"
   }
 }

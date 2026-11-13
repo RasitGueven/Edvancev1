@@ -1,12 +1,15 @@
 // Der gemeinsame Formularzustand des Erstgespraechs. Die Sektionen lesen/schreiben
 // ihn, der Orchestrator leitet daraus die Lead-Payloads ab.
 import type {
+  Abschlussziel,
+  KursMathe,
   Lead,
   LeadGradeTrend,
   LeadInput,
   LeadStrugglingSince,
   SchoolKind,
 } from '@/types'
+import { KURS_SCHULFORMEN } from './intakeConstants'
 
 export type IntakeFormState = {
   // Stammdaten
@@ -21,6 +24,9 @@ export type IntakeFormState = {
   school_name: string
   // Schule aus der Liste; null bei Freitext oder ohne Angabe.
   schule_id: string | null
+  // SF-1: nur bei Gesamt- und Sekundarschule (KURS_SCHULFORMEN), sonst null gespeichert.
+  kurs_mathe: KursMathe | null
+  abschlussziel: Abschlussziel | null
   subjects: string[]
   contact_email: string
   contact_phone: string
@@ -59,6 +65,8 @@ export const EMPTY_INTAKE: IntakeFormState = {
   school_type: null,
   school_name: '',
   schule_id: null,
+  kurs_mathe: null,
+  abschlussziel: null,
   subjects: [],
   contact_email: '',
   contact_phone: '',
@@ -87,6 +95,8 @@ export function intakeFromLead(lead: Lead): IntakeFormState {
     school_type: lead.school_type,
     school_name: lead.school_name ?? '',
     schule_id: lead.schule_id ?? null,
+    kurs_mathe: lead.kurs_mathe ?? null,
+    abschlussziel: lead.abschlussziel ?? null,
     subjects: lead.subjects ?? [],
     contact_email: lead.contact_email ?? '',
     contact_phone: lead.contact_phone ?? '',
@@ -129,10 +139,11 @@ export function freigabeZustand(args: {
   return 'bestaetigen'
 }
 
-const nullIfEmpty =(value: string): string | null => (value.trim() === '' ? null : value.trim())
+const nullIfEmpty = (value: string): string | null => (value.trim() === '' ? null : value.trim())
 
 // Stammdaten + Erstgespraech-Felder als Lead-Payload (fuer create und update).
 export function intakeToLeadInput(form: IntakeFormState): LeadInput {
+  const mitKurs = form.school_type !== null && KURS_SCHULFORMEN.includes(form.school_type)
   return {
     full_name: form.full_name.trim(),
     first_name: nullIfEmpty(form.first_name),
@@ -143,6 +154,8 @@ export function intakeToLeadInput(form: IntakeFormState): LeadInput {
     school_type: form.school_type,
     school_name: nullIfEmpty(form.school_name),
     schule_id: form.schule_id,
+    kurs_mathe: mitKurs ? form.kurs_mathe : null,
+    abschlussziel: mitKurs ? form.abschlussziel : null,
     subjects: form.subjects,
     last_grade: form.last_grade,
     grade_trend: form.grade_trend,
@@ -160,7 +173,10 @@ export function klassenarbeitAusForm(form: IntakeFormState): {
   datum: string | null
   note: number | null
 } {
-  const status = form.klassenarbeit === 'bevorstehend' || form.klassenarbeit === 'geschrieben' ? form.klassenarbeit : null
+  const status =
+    form.klassenarbeit === 'bevorstehend' || form.klassenarbeit === 'geschrieben'
+      ? form.klassenarbeit
+      : null
   return {
     status,
     datum: status === 'bevorstehend' ? nullIfEmpty(form.naechste_arbeit_datum) : null,

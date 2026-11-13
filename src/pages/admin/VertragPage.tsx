@@ -26,6 +26,7 @@ import { isValidIban, normalizeIban } from '@/lib/vertrag/iban'
 import type { RejectionReason, TierPlan, VertragDokument, VertragMitLead } from '@/types'
 import { RejectModal } from './leads/RejectModal'
 import { EinpflegenPanel } from './vertraege/EinpflegenPanel'
+import { KursHinweis } from './vertraege/KursHinweis'
 import { NachAbschluss } from './vertraege/NachAbschluss'
 import { Schritt2Dokument } from './vertraege/Schritt2Dokument'
 import { Schritt3Weg, type AbschlussWahl } from './vertraege/Schritt3Weg'
@@ -221,6 +222,8 @@ export function VertragPage(): JSX.Element {
             })}
           </EdvanceCard>
         )}
+
+        <KursHinweis vertrag={vertrag} />
 
         {inVorbereitung && (
           <>

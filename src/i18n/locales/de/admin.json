@@ -311,6 +311,21 @@
       "ohneThemaHinweis": "Kein aktuelles Thema gewählt – die Lernstandsanalyse prüft dann ohne Schwerpunkt in der Breite.",
       "ohneThema": "Ohne Thema freigeben",
       "themaWaehlen": "Thema wählen"
+    },
+    "kurs": {
+      "kurs": "Kurs Mathe",
+      "ziel": "Abschlussziel",
+      "offen": "Noch offen",
+      "kurse": {
+        "E": "E-Kurs (Erweiterungskurs)",
+        "G": "G-Kurs (Grundkurs)"
+      },
+      "ziele": {
+        "EESA": "Erweiterter Erster Schulabschluss (EESA)",
+        "MSA": "Mittlerer Schulabschluss (MSA)",
+        "MSA-Q": "MSA mit Qualifikation für die Oberstufe",
+        "GYM": "ZP10 Gymnasium (GYM)"
+      }
     }
   },
   "nav": {

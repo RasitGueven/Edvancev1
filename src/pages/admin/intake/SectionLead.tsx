@@ -3,7 +3,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SELECT_MD } from '@/lib/formStyles'
 import type { SchoolKind } from '@/types'
-import { CLASS_LEVELS, SCHOOL_TYPES, SUBJECTS } from './intakeConstants'
+import { CLASS_LEVELS, KURS_SCHULFORMEN, SCHOOL_TYPES, SUBJECTS } from './intakeConstants'
+import { KursFelder } from './KursFelder'
 import { OptionChips } from './OptionChips'
 import { SchulAuswahl } from './SchulAuswahl'
 import type { IntakeFormState } from './formState'
@@ -20,9 +21,7 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
   const toggleSubject = (subject: string): void => {
     const list = form.subjects
     patch({
-      subjects: list.includes(subject)
-        ? list.filter((s) => s !== subject)
-        : [...list, subject],
+      subjects: list.includes(subject) ? list.filter((s) => s !== subject) : [...list, subject],
     })
   }
 
@@ -40,7 +39,9 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
           placeholder={t('intake.lead.firstNamePlaceholder')}
         />
         <p className="text-xs text-[var(--color-text-tertiary)]">
-          {t('intake.lead.firstNameHint', { name: form.first_name.trim() || '…' })}
+          {t('intake.lead.firstNameHint', {
+            name: form.first_name.trim() || '…',
+          })}
         </p>
       </div>
 
@@ -69,7 +70,9 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
             className={SELECT_MD}
             value={form.class_level ?? ''}
             onChange={(e) =>
-              patch({ class_level: e.target.value ? Number(e.target.value) : null })
+              patch({
+                class_level: e.target.value ? Number(e.target.value) : null,
+              })
             }
           >
             <option value="">{t('intake.lead.none')}</option>
@@ -87,7 +90,9 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
             className={SELECT_MD}
             value={form.school_type ?? ''}
             onChange={(e) =>
-              patch({ school_type: (e.target.value || null) as SchoolKind | null })
+              patch({
+                school_type: (e.target.value || null) as SchoolKind | null,
+              })
             }
           >
             <option value="">{t('intake.lead.none')}</option>
@@ -106,6 +111,16 @@ export function SectionLead({ form, patch }: SectionLeadProps): JSX.Element {
             onChange={patch}
           />
         </div>
+        {form.school_type !== null && KURS_SCHULFORMEN.includes(form.school_type) && (
+          <div className="sm:col-span-2">
+            <KursFelder
+              idPrefix="lead"
+              kurs={form.kurs_mathe}
+              ziel={form.abschlussziel}
+              onChange={patch}
+            />
+          </div>
+        )}
         <div className="flex flex-col gap-2">
           <Label htmlFor="lead-email">{t('intake.lead.contactEmail')}</Label>
           <Input

@@ -14,6 +14,8 @@ export async function createLead(input: LeadInput): Promise<SupabaseResult<Lead>
         school_type: input.school_type ?? null,
         school_name: input.school_name ?? null,
         schule_id: input.schule_id ?? null,
+        kurs_mathe: input.kurs_mathe ?? null,
+        abschlussziel: input.abschlussziel ?? null,
         subjects: input.subjects ?? [],
         goal: input.goal ?? null,
         known_weak_topics: input.known_weak_topics ?? [],
@@ -73,6 +75,8 @@ type LeadPatch = Partial<
     | 'school_type'
     | 'school_name'
     | 'schule_id'
+    | 'kurs_mathe'
+    | 'abschlussziel'
     | 'subjects'
     | 'last_grade'
     | 'grade_trend'
